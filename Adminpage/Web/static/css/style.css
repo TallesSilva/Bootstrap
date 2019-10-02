@@ -1,3 +1,68 @@
-.row h1 {
-    color: red;
-}
+        .row h1 {
+            color: red;
+        }
+        
+        .row h2 {
+            color: green;
+        }
+        
+        .container-bg {
+            background: #22212212;
+        }
+        
+        .navbar {
+            background: #5f5e5fad;
+            Max-height: 60px;
+            position: sticky;
+        }
+        
+        div.kyros {
+            max-width: 200px;
+            max-height: 50px;
+            float: left;
+            margin: 0%;
+            position: fixed;
+        }
+        
+        img.kyros {
+            max-width: 200px;
+            max-height: 50px;
+            float: left;
+        }
+        
+        #options {
+            min-width: 250px;
+            max-width: 350px;
+            max-height: 70px;
+            float: right;
+            margin: 80%;
+            display: inline-flex;
+            position: fixed;
+            left: 10px;
+        }
+        
+        div a.btn {
+            padding: 16px 16px;
+            color: white;
+            max-height: 70px;
+            font-size: 25px;
+        }
+        
+        div#options img {
+            border-radius: 25%;
+            max-height: 58px;
+        }
+        
+        div span.badge {
+            margin-top: 3px;
+            background: white;
+            color: grey;
+            display: table;
+            float: left;
+            line-height: 1.5;
+        }
+        
+        div#options div {
+            width: 65px;
+            margin-top: 5px;
+        }
