@@ -1,68 +1,87 @@
-        .row h1 {
-            color: red;
-        }
-        
-        .row h2 {
-            color: green;
-        }
-        
-        .container-bg {
-            background: #22212212;
-        }
-        
-        .navbar {
-            background: #5f5e5fad;
-            Max-height: 60px;
-            position: sticky;
-        }
-        
-        div.kyros {
-            max-width: 200px;
-            max-height: 50px;
-            float: left;
-            margin: 0%;
-            position: fixed;
-        }
-        
-        img.kyros {
-            max-width: 200px;
-            max-height: 50px;
-            float: left;
-        }
-        
-        #options {
-            min-width: 250px;
-            max-width: 350px;
-            max-height: 70px;
-            float: right;
-            margin: 80%;
-            display: inline-flex;
-            position: fixed;
-            left: 10px;
-        }
-        
-        div a.btn {
-            padding: 16px 16px;
-            color: white;
-            max-height: 70px;
-            font-size: 25px;
-        }
-        
-        div#options img {
-            border-radius: 25%;
-            max-height: 58px;
-        }
-        
-        div span.badge {
-            margin-top: 3px;
-            background: white;
-            color: grey;
-            display: table;
-            float: left;
-            line-height: 1.5;
-        }
-        
-        div#options div {
-            width: 65px;
-            margin-top: 5px;
-        }
+    .navbar {
+        background: #5a686f;
+        width: 100%;
+        position: sticky;
+        box-shadow: 0 0 0 1px rgba(20, 20, 31, .05), 0 1px 3px 0 rgba(20, 20, 31, .15);
+        align-items: stretch;
+        height: 3.5rem;
+        margin-bottom: 0px;
+    }
+    
+    div.kyros {
+        margin-bottom: 0;
+        padding: 0 .5rem 0 1rem;
+        height: 3.5rem;
+        width: 15rem;
+        font-size: 1.25rem;
+        align-items: center;
+    }
+    
+    img.kyros {
+        vertical-align: middle;
+        border-style: none;
+        box-sizing: border-box;
+        width: 100px;
+    }
+    
+    #options {
+        margin-left: auto;
+        display: inline-flex;
+    }
+    
+    div a.nav-profile {
+        color: white;
+        vertical-align: middle;
+        box-sizing: border-box;
+        height: 4rem;
+        margin-right: 1.75rem;
+    }
+    
+    div a.nav-link {
+        color: rgb(45, 59, 85);
+        vertical-align: middle;
+        box-sizing: border-box;
+        font: auto;
+    }
+    
+    div#options img {
+        width: auto;
+        border-radius: 15%;
+        height: 4rem;
+        margin-right: .75rem;
+    }
+    
+    div span.badge {
+        background: white;
+        color: grey;
+        display: block;
+        margin: 1%;
+        opacity: .9;
+        border-radius: 5px;
+    }
+    
+    div#options div {
+        margin: auto;
+    }
+    
+    div.col-4 {
+        border: 1px solid #d6d8e1;
+        box-shadow: 0 0 0 1px rgba(20, 20, 31, .05), 0 1px 3px 0 rgba(20, 20, 31, .15);
+        padding-right: 0px;
+        min-width: 10%;
+        max-width: 300px;
+    }
+    
+    div.About {
+        border-top: 1px solid #d6d8e1;
+        flex: 1;
+        position: fixed;
+        bottom: 0;
+        background: #d6d8e1;
+    }
+    
+    div.col-8 {
+        background: #e8ecee;
+    }
+    
+    div.dashboard {}

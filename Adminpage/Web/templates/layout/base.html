@@ -3,6 +3,10 @@
 <html lang="en">
 
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -13,19 +17,54 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="{% static 'css\style.css' %}">
+
 </head>
 
 <body>
     <header class="app-header app-header-dark">
         <nav class="navbar navbar-expand-sm">
             <div class="kyros">
-                <a href="https://www.kyros.com.br/"><img class="kyros" src="https://www.kyros.com.br/wp-content/themes/Kyros%202.0/img/logo.png">
+                <a href="https://www.kyros.com.br/"><img class="kyros" src="http://portal.kyros.com.br/portal/assets/images/logo.png">
                 </a>
             </div>
             <div id="options">
-                <a href="#" class="btn btn-lg">
-                    <span class="glyphicon glyphicon-th"></span>
-                </a>
+                <li class="nav-item dropdown header-nav-dropdown">
+                    <a class="nav-profile" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-th"></span></a>
+                    <!-- .dropdown-menu -->
+                    <div class="dropdown-menu dropdown-menu-rich dropdown-menu-right" x-placement="top-end" style="position: absolute; will-change: top, left; top: -5px; left: -276px;">
+                        <div class="dropdown-arrow"></div>
+                        <!-- .dropdown-sheets -->
+                        <div class="dropdown-sheets">
+                            <!-- .dropdown-sheet-item -->
+                            <div class="dropdown-sheet-item">
+                                <a href="#" class="tile-wrapper"><span class="tile tile-lg bg-indigo"><i class="oi oi-people"></i></span> <span class="tile-peek">Teams</span></a>
+                            </div>
+                            <!-- /.dropdown-sheet-item -->
+                            <!-- .dropdown-sheet-item -->
+                            <div class="dropdown-sheet-item">
+                                <a href="#" class="tile-wrapper"><span class="tile tile-lg bg-teal"><i class="oi oi-fork"></i></span> <span class="tile-peek">Projects</span></a>
+                            </div>
+                            <!-- /.dropdown-sheet-item -->
+                            <!-- .dropdown-sheet-item -->
+                            <div class="dropdown-sheet-item">
+                                <a href="#" class="tile-wrapper"><span class="tile tile-lg bg-pink"><i class="fa fa-tasks"></i></span> <span class="tile-peek">Tasks</span></a>
+                            </div>
+                            <!-- /.dropdown-sheet-item -->
+                            <!-- .dropdown-sheet-item -->
+                            <div class="dropdown-sheet-item">
+                                <a href="#" class="tile-wrapper"><span class="tile tile-lg bg-yellow"><i class="oi oi-fire"></i></span> <span class="tile-peek">Feeds</span></a>
+                            </div>
+                            <!-- /.dropdown-sheet-item -->
+                            <!-- .dropdown-sheet-item -->
+                            <div class="dropdown-sheet-item">
+                                <a href="#" class="tile-wrapper"><span class="tile tile-lg bg-cyan"><i class="oi oi-document"></i></span> <span class="tile-peek">Files</span></a>
+                            </div>
+                            <!-- /.dropdown-sheet-item -->
+                        </div>
+                        <!-- .dropdown-sheets -->
+                    </div>
+                    <!-- .dropdown-menu -->
+                </li>
                 <div>
                     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgAoQg1hPSVY9M6AYAdpfE82EsPbijCz6RD8LoFvL0vJNTzrezlQ">
                 </div>
@@ -42,16 +81,21 @@
         <div class="row">
             <div class="col-4">
                 <nav class="nav flex-column">
-                    <a class="nav-link" href="{% url 'post_list' %}">Post List</a>
-                    <a class="nav-link" href="{% url 'contact' %}">Contact</a>
-                    <a class="nav-link" href="{% url 'about' %}">About</a>
+                    <div class="barra-lateral">
+                        <a class="nav-link" href="{% url 'dashboard' %}"><span class="glyphicon glyphicon-home"></span>Dashboard</a>
+                        <a class="nav-link" href="{% url 'entrie' %}"><span class="glyphicon glyphicon-home"></span>entrie</a>
+                        <a class="nav-link" href="{% url 'option' %}"><span class="glyphicon glyphicon-home"></span>option</a>
+                        <a class="nav-link" href="{% url 'user' %}"><span class="glyphicon glyphicon-home"></span>user</a>
+                        <a class="nav-link" href="{% url 'configure' %}"><span class="glyphicon glyphicon-home"></span>configure</a>
+                    </div>
                 </nav>
-
+                <div class="About">
+                    <a class="nav-link" href="{% url 'about' %}">About</a>
+                </div>
             </div>
             <div class="col-8"> {% block content %} {% endblock %}</div>
         </div>
     </div>
-
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
