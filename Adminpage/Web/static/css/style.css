@@ -33,7 +33,7 @@
         color: white;
         vertical-align: middle;
         box-sizing: border-box;
-        height: 4rem;
+        height: 4rem!important;
         margin-right: 1.75rem;
     }
     
@@ -82,6 +82,11 @@
     
     div.col-8 {
         background: #e8ecee;
+        flex-basis: auto;
     }
     
     div.dashboard {}
+    
+    li {
+        color: transparent;
+    }
