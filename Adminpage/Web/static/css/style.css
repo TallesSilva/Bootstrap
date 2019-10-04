@@ -84,7 +84,7 @@
     
     div.col-8 {
         background: transparent;
-        flex-basis: -moz-min-content;
+        flex-basis: max-content;
         max-height: max-content;
         position: sticky;
         max-width: 77.5%;
