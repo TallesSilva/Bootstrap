@@ -6,6 +6,8 @@
         align-items: stretch;
         height: 3.5rem;
         margin-bottom: 0px;
+        min-width: 250px;
+        flex-wrap: unset;
     }
     
     div.kyros {
@@ -14,7 +16,7 @@
         height: 3.5rem;
         width: 15rem;
         font-size: 1.25rem;
-        align-items: center;
+        align-items: left;
     }
     
     img.kyros {
@@ -81,8 +83,11 @@
     }
     
     div.col-8 {
-        background: #e8ecee;
-        flex-basis: auto;
+        background: transparent;
+        flex-basis: -moz-min-content;
+        max-height: max-content;
+        position: sticky;
+        max-width: 77.5%;
     }
     
     div.dashboard {}
