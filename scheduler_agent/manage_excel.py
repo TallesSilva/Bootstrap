@@ -17,6 +17,22 @@ class excel:
     def __init__(self):
         self.ws = []
 
+    def backlog(self):
+        try:
+            e.load_backlog()
+            row, column = e.max_row_column()
+            
+            for r in range(1, row+1):
+                for c in range(1, column+1):
+                    data = e.read_cell(r, c)
+                    print(data, r, c)
+                    print('\n')
+                ''' inserir data in mongo '''
+            return True
+        except:
+            print("falha ao percorrer dados")
+            return False
+
     def load_backlog(self):
         """ carrega um backlog em self.ws """
         try:
@@ -35,22 +51,22 @@ class excel:
             data = self.ws.cell(nrow, ncolumn).value
             return data
         except:
-            print('Por algum motivo não foi possivel ler linha')
+            
             return None
 
     def max_row_column(self):
         """retorna o numero maximo de linhas e colunas"""
         try:
-            rows = self.ws.max_row
-            columns = self.ws.max_column
+            ws = self.ws
+            rows = ws.max_row
+            columns = ws.max_column
             return rows, columns
         except:
             print("não foi possivel calcular os valores maximos")
-            return None
+            return None, None
 
 
 if __name__ == '__main__':
     e = excel()
-    e.load_backlog()
-    print(e.max_row_column())
+    e.backlog()
 
