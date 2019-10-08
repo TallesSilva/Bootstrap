@@ -69,13 +69,27 @@ class Insert_Timetable_Payload(Insert):
             logger.erro(falha.__name__)
             logger.erro("falha ao criar timetable sem a data: {}".format(str(falha)))            
 
+class Insert_Backlog(Insert):
+    def __init__(self):
+        super(Insert_Backlog,self).__init__()
+        self.collection = 'backlog'
+
+    def generate(self, data):
+        try: 
+            self.data = data
+            return self.data
+        except Exception as falha:
+            logger.erro(falha.__name__)
+            logger.erro("falha ao criar timetable sem a data: {}".format(str(falha)))            
+
 
 if __name__ == '__main__':
     generators = [
         #Insert_Supplier_Payload(),
-        Insert_Customer_Payload(),
-        #GeneratorTimetableNone()
-        #Insert_Timetable_Payload()
+        #Insert_Customer_Payload(),
+        #GeneratorTimetableNone(),
+        #Insert_Timetable_Payload(),
+        #Insert_Backlog(),
     ]
     while(1):        
         for g in generators:

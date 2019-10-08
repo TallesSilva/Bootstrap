@@ -85,6 +85,24 @@ class Manage:
         except:
             print("exception has found")
 
+    def generate_none_payload_visit(customer, supplier, start_date, task):
+        """Retorna um payload da visita."""
+        try:
+            payload_timetable = {
+            "start_date": start_date,
+            "end_date": None,
+            "status": 'Aberto',
+            "observacao": '',
+            "task": task,
+            "supplier": supplier,
+            "customer": customer,
+            "company": "5d6020abd12e66a47a7888ed"
+            }
+            print(payload_timetable)
+            return payload_timetable
+        except:
+            print("exception has found")
+
     def date_sum_hour(start_date, value):
         """Retorna a data de entrada acrescida de value horas."""  
         return (start_date + timedelta(hours=value))
