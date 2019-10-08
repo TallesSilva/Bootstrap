@@ -21,7 +21,6 @@ class excel:
         try:
             e.load_backlog()
             row, column = e.max_row_column()
-            
             for r in range(1, row+1):
                 for c in range(1, column+1):
                     data = e.read_cell(r, c)
