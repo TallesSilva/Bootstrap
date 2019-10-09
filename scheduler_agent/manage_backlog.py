@@ -19,16 +19,15 @@ class excel:
         super(excel, self).__init__()
         self.ws = []
 
-    def generate_timetable_with_backlog(start_create: datetime, finished_create: datetime):
+    def generate_timetable_with_backlog():
         """Inicializa variaveis necessarias e lista todos os customers sem visita e cria visitas."""
-        start_date = start_create
-        end_date = Manage.date_sum_hour(start_date, 1)
         customer_no_have_date, customer_have_date = e.customer_list()
         print(customer_no_have_date, '\n')
         print(customer_have_date)
-
-        '''for customer in customer_backlog:
-            supplier = Getter.find_date_avaible(start_date)
+        for customer in customer_no_have_date:
+            supplier = Getter.get_supplier('customer', customer)
+            print(supplier)
+        '''
             while suppliers is None:
                 """Percorre as datas a procura de supplier != None."""
                 start_date = Manage.date_sum_hour(start_date, 1)
