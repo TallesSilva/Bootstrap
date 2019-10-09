@@ -19,9 +19,9 @@ class excel:
         super(excel, self).__init__()
         self.ws = []
 
-    def generate_timetable_with_backlog():
+    def generate_timetable_with_backlog(self):
         """Inicializa variaveis necessarias e lista todos os customers sem visita e cria visitas."""
-        customer_no_have_date, customer_have_date = e.customer_list()
+        customer_no_have_date, customer_have_date = e.customer_available()
         print(customer_no_have_date, '\n')
         print(customer_have_date)
         for customer in customer_no_have_date:
@@ -117,5 +117,4 @@ class excel:
 
 if __name__ == '__main__':
     e = excel()
-    e.insert_backlog_in_db()
-    print(e.customer_available())
+    e.generate_timetable_with_backlog()
