@@ -26,6 +26,7 @@ class excel:
         customer_backlog = Getter.get_all_backlog('customer')
         print(customer_backlog)
         for customer in customer_backlog:
+            supplier = excel.find_date_avaible(start_date)
             while suppliers is None:
                 """Percorre as datas a procura de supplier != None."""
                 start_date = Manage.date_sum_hour(start_date, 1)
@@ -78,6 +79,11 @@ class excel:
             print('Falha ao encontrar backlog')
             return None
     
+    def find_date_avaible(start_date):
+        supplier = 
+
+        return supplier
+
     def read_cell(self, nrow, ncolumn):
         '''ler celula e retornar data'''
         try:

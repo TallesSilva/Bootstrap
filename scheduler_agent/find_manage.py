@@ -141,14 +141,14 @@ class Getter:
         x = random.randint(0, (x-1))
         random_visit = Getter.get_visit('_id', list_visits[x])
         return random_visit
-    
-    def customers_backlog():
 
-        return True
+    def find_date_supplier():
+        return Getter._get_all_data('backlog', 'supplier', 'josé1', 'start_date' )
+    
 
 if __name__ == '__main__':
     generators = [
-        Getter.get_all_suppliers_has_visit('2019-09-26T08')
+        #Getter.get_all_suppliers_has_visit('2019-09-26T08')
         #Getter.get_all_visits('start_data'),
         #Getter.get_all_company(data)
         #Getter.get_all_customer(data)
@@ -157,6 +157,7 @@ if __name__ == '__main__':
         #Getter.get_customer(type, data)
         #Getter.get_supplier(type, data)
         #Getter.get_random_visit()
+        Getter.find_date_supplier()
     ]
     for g in generators:
         print(g)
