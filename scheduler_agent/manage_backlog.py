@@ -25,7 +25,7 @@ class excel:
         print(customer_no_have_date, '\n')
         print(customer_have_date)
         for customer in customer_no_have_date:
-            supplier = Getter.get_supplier('customer', customer)
+            supplier = Getter.get_supplier_in_backlog('customer', customer)
             print(supplier)
         '''
             while suppliers is None:
