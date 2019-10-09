@@ -1,4 +1,4 @@
 __pycache__
-**.vscode
+vscode/
 *.tar.gz
 *.vscode/settings.json
