@@ -112,7 +112,7 @@ class Getter:
         return Getter._get_one_something('supplier', data_type, data, 1)
 
     def get_supplier_in_backlog(data_type, data): # procura um supplier no backlog atraves do customer
-        return Getter._get_one_something('backlog', data_type, data, 'supplier')
+        return Getter._get_all_data('backlog', data_type, data, 'supplier')
 
     def get_customer(data_type, data): # através de um dado de supplier retorna todos os outros dados dele
         return Getter._get_one_something('customer', data_type, data, 1)
