@@ -80,7 +80,7 @@ class excel:
             return None
     
     def find_date_avaible(start_date):
-        supplier = 
+       # supplier = 
 
         return supplier
 
@@ -107,5 +107,5 @@ class excel:
 
 if __name__ == '__main__':
 
-    customer_backlog = Getter.get_all_backlog('customer')
-    print(customer_backlog)
+    e = excel()
+    e.insert_backlog_in_db()

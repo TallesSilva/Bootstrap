@@ -143,7 +143,7 @@ class Getter:
         return random_visit
 
     def find_date_supplier():
-        return Getter._get_all_data('backlog', 'supplier', 'josé1', 'start_date' )
+        return Getter._get_all_data('backlog', 'supplier', 'José1', 'start_date' )
     
 
 if __name__ == '__main__':
