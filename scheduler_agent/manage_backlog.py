@@ -23,17 +23,19 @@ class excel:
         """Inicializa variaveis necessarias e lista todos os customers sem visita e cria visitas."""
         start_date = start_create
         end_date = Manage.date_sum_hour(start_date, 1)
-        customer_backlog = Getter.get_all_backlog('customer')
-        print(customer_backlog)
-        for customer in customer_backlog:
-            supplier = excel.find_date_avaible(start_date)
+        customer_no_have_date, customer_have_date = e.customer_list()
+        print(customer_no_have_date, '\n')
+        print(customer_have_date)
+
+        '''for customer in customer_backlog:
+            supplier = Getter.find_date_avaible(start_date)
             while suppliers is None:
                 """Percorre as datas a procura de supplier != None."""
                 start_date = Manage.date_sum_hour(start_date, 1)
                 end_date = Manage.date_sum_hour(start_date, 1)
                 start_date = Manage.available_date(start_date)
                 suppliers = Manage.find_available_suppliers(start_date)
-            '''
+           
             """atualiza as condições para gerar as visitas ou não"""
             """start_date = finished_create o sistema para de gerar visitas."""
             condition_finish_create_visits = start_date >= finished_create
@@ -47,6 +49,15 @@ class excel:
                 Manage.insert_payload(payload)
         '''
         return True
+
+    def customer_available(self):
+        try:
+            customer_backlog = Getter.get_all_backlog('customer')
+            customer_no_have_date = Getter.find_all_customer_have_date('backlog', None)
+            customer_have_date = [x for x in customer_backlog if x not in customer_no_have_date]
+            return customer_no_have_date, customer_have_date
+        except:
+            return 'falha'
 
     def insert_backlog_in_db(self):
         try:
@@ -80,7 +91,7 @@ class excel:
             return None
     
     def find_date_avaible(start_date):
-       # supplier = 
+        supplier_visits = Getter.find_all_date_supplier('time_table', )
 
         return supplier
 
@@ -106,6 +117,6 @@ class excel:
 
 
 if __name__ == '__main__':
-
     e = excel()
     e.insert_backlog_in_db()
+    print(e.customer_available())

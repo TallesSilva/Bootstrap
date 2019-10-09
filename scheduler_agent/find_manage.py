@@ -120,6 +120,9 @@ class Getter:
     def get_visit(data_type, data): # através de um dado de supplier retorna todos os outros dados dele
         return Getter._get_one_something('time_table', data_type, data, 1)
 
+    def get_backlog(data_type, data): # através de um dado de supplier retorna todos os outros dados dele
+        return Getter._get_one_something('backlog', data_type, data, 1)
+
     def get_all_supplier(data_type): # através de um tipo de dado de supplier retorna todos suppliers
         return Getter._get_all_something('supplier', data_type, 1, 1)
 
@@ -142,8 +145,11 @@ class Getter:
         random_visit = Getter.get_visit('_id', list_visits[x])
         return random_visit
 
-    def find_date_supplier():
-        return Getter._get_all_data('backlog', 'supplier', 'José1', 'start_date' )
+    def find_all_date_supplier(collection, supplier):
+        return Getter._get_all_data(collection, 'supplier', supplier, 'start_date' )
+    
+    def find_all_customer_have_date(collection, date):
+        return Getter._get_all_data(collection, 'start_date', date, 'customer' )
     
 
 if __name__ == '__main__':
@@ -157,7 +163,8 @@ if __name__ == '__main__':
         #Getter.get_customer(type, data)
         #Getter.get_supplier(type, data)
         #Getter.get_random_visit()
-        Getter.find_date_supplier()
+        #Getter.find_date_supplier('backlog', 'José1')
+        Getter.find_all_customer_have_date('backlog', None)
     ]
     for g in generators:
         print(g)
