@@ -37,16 +37,6 @@ class excel:
             return True
         except:
             return False
-    
-    def insert_backlog_data(data):
-        """Insere o payload de visita no db."""
-        try:
-            f = Insert_Backlog_Payload()
-            f.generate(data)
-            f.insert_to_mongo()
-            return "ok"
-        except:
-            return 'falha'
 
     def load_backlog(self):
         """ carrega um backlog em self.ws """
