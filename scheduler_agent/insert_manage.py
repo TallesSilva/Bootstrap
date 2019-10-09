@@ -69,9 +69,9 @@ class Insert_Timetable_Payload(Insert):
             logger.erro(falha.__name__)
             logger.erro("falha ao criar timetable sem a data: {}".format(str(falha)))            
 
-class Insert_Backlog(Insert):
+class Insert_Backlog_Payload(Insert):
     def __init__(self):
-        super(Insert_Backlog,self).__init__()
+        super(Insert_Backlog_Payload,self).__init__()
         self.collection = 'backlog'
 
     def generate(self, data):

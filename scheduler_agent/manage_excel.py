@@ -19,38 +19,34 @@ class excel:
         super(excel, self).__init__()
         self.ws = []
 
-    def backlog(self):
+    def insert_backlog_in_db(self):
         try:
-            excel.load_backlog()
-            row, column = excel.max_row_column()
+            e = excel()
+            e.load_backlog()
+            row, column = e.max_row_column()
             for r in range(1, row+1):
-                customer = excel.read_cell(r, 1)
-                supplier = excel.read_cell(r, 2)
-                task = excel.read_cell(r, 3)
-                start_date = excel.read_cell(r, 4)
-                print(customer)
-                print(supplier)
-                print(task)
-                print(start_date)
-                print('\n')
+                customer = e.read_cell(r, 1)
+                supplier = e.read_cell(r, 2)
+                task = e.read_cell(r, 3)
+                start_date = e.read_cell(r, 4)
                 ''' inserir data in mongo '''
                 payload = Manage.generate_none_payload_visit(customer, supplier, start_date, task)
-                excel.insert_backlog_data(payload)
+                f = Insert_Backlog_Payload()
+                f.generate(payload)
+                f.insert_to_mongo()
             return True
         except:
-            print("falha ao percorrer dados")
             return False
     
     def insert_backlog_data(data):
         """Insere o payload de visita no db."""
         try:
-            f = Insert_Backlog()
+            f = Insert_Backlog_Payload()
             f.generate(data)
             f.insert_to_mongo()
-            return True
+            return "ok"
         except:
-            print("falha")
-            return False
+            return 'falha'
 
     def load_backlog(self):
         """ carrega um backlog em self.ws """
@@ -86,6 +82,6 @@ class excel:
 
 
 if __name__ == '__main__':
-    excel = excel()
-    excel.backlog()
+    e = excel()
+    e.insert_backlog_in_db()
 
