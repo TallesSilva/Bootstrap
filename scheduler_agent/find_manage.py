@@ -132,8 +132,8 @@ class Getter:
     def get_all_visits(data_type): # através de um tipo de dado de supplier retorna todos suppliers
         return Getter._get_all_something('time_table', data_type, 1, 1)
 
-    def get_all_suppliers_has_visit(date):
-        return Getter._get_all_data('time_table', 'start_date', date, 'supplier')
+    def get_all_backlog(data_type): # através de um tipo de dado retorna todos esses dados do backlog
+        return Getter._get_all_something('backlog', data_type, 1, 1)
 
     def get_random_visit():
         list_visits = Getter._get_all_something('time_table', '_id', 1, 1)
@@ -141,6 +141,10 @@ class Getter:
         x = random.randint(0, (x-1))
         random_visit = Getter.get_visit('_id', list_visits[x])
         return random_visit
+    
+    def customers_backlog():
+
+        return True
 
 if __name__ == '__main__':
     generators = [

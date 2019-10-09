@@ -19,6 +19,34 @@ class excel:
         super(excel, self).__init__()
         self.ws = []
 
+    def generate_timetable_with_backlog(start_create: datetime, finished_create: datetime):
+        """Inicializa variaveis necessarias e lista todos os customers sem visita e cria visitas."""
+        start_date = start_create
+        end_date = Manage.date_sum_hour(start_date, 1)
+        customer_backlog = Getter.get_all_backlog('customer')
+        print(customer_backlog)
+        for customer in customer_backlog:
+            while suppliers is None:
+                """Percorre as datas a procura de supplier != None."""
+                start_date = Manage.date_sum_hour(start_date, 1)
+                end_date = Manage.date_sum_hour(start_date, 1)
+                start_date = Manage.available_date(start_date)
+                suppliers = Manage.find_available_suppliers(start_date)
+            '''
+            """atualiza as condições para gerar as visitas ou não"""
+            """start_date = finished_create o sistema para de gerar visitas."""
+            condition_finish_create_visits = start_date >= finished_create
+            conditon_continue_create_visits = start_date < finished_create
+            if condition_finish_create_visits:
+                break
+            else:
+                x = len(suppliers)
+                x = random.randint(0, (x-1))
+                payload = Manage.generate_available_payload_visit(customer, suppliers[x], start_date, end_date)
+                Manage.insert_payload(payload)
+        '''
+        return True
+
     def insert_backlog_in_db(self):
         try:
             e = excel()
@@ -72,6 +100,6 @@ class excel:
 
 
 if __name__ == '__main__':
-    e = excel()
-    e.insert_backlog_in_db()
 
+    customer_backlog = Getter.get_all_backlog('customer')
+    print(customer_backlog)
