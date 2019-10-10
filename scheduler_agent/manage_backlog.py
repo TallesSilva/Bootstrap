@@ -141,7 +141,7 @@ class excel:
 
 if __name__ == '__main__':
     excel = excel()
-    #excel.insert_backlog_in_db()
+    excel.insert_backlog_in_db()
     start_create = fake.future_datetime("+10h")
     finished_create = Manage.date_sum_hour(start_create, 19)
     print("A visitas do log serão geradas de {} até {}".format(start_create.strftime("%Y-%m-%dT%H"), finished_create.strftime("%Y-%m-%dT%H")))
