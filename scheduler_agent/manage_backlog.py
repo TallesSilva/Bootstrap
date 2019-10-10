@@ -19,34 +19,48 @@ class excel:
         super(excel, self).__init__()
         self.ws = []
 
-    def generate_timetable_with_backlog(self):
+    def generate_timetable_with_backlog(self, start_create: datetime, finished_create:datetime):
         """Inicializa variaveis necessarias e lista todos os customers sem visita e cria visitas."""
-        customer_no_have_date, customer_have_date = e.customer_available()
-        print(customer_no_have_date, '\n')
-        print(customer_have_date)
-        for customer in customer_no_have_date:
+        customer_no_have_date, customer_have_date = excel.customer_available()
+        for customer in customer_have_date:
             supplier = Getter.get_supplier_in_backlog('customer', customer)
-            date = find_date_avaible(supplier)
-            print(date)
-            '''
-            while suppliers is None:
-                """Percorre as datas a procura de supplier != None."""
+            supplier = supplier[0]
+            start_date = Getter.find_start_date_in_backlog('customer', customer)
+            start_date = start_date[0]
+            print(start_date)
+            start_date = datetime.strptime(start_date, "%Y-%m-%dT%H")
+            valida = excel.validate_date_avaible_for_supplier(supplier, start_date) 
+            while valida is None:
                 start_date = Manage.date_sum_hour(start_date, 1)
-                end_date = Manage.date_sum_hour(start_date, 1)
                 start_date = Manage.available_date(start_date)
-                suppliers = Manage.find_available_suppliers(start_date)
+                start_date = Manage.available_date(start_date)
+                valida = excel.validate_date_avaible_for_supplier(supplier, start_date)
             """atualiza as condições para gerar as visitas ou não"""
             """start_date = finished_create o sistema para de gerar visitas."""
             condition_finish_create_visits = start_date >= finished_create
             conditon_continue_create_visits = start_date < finished_create
-            if condition_finish_create_visits:
-                break
-            else:
-                x = len(suppliers)
-                x = random.randint(0, (x-1))
-                payload = Manage.generate_available_payload_visit(customer, suppliers[x], start_date, end_date)
+            if conditon_continue_create_visits:
+                end_date = Manage.date_sum_hour(start_date, 1)
+                payload = Manage.generate_available_payload_visit(customer, supplier, 'Backlog', 'Instalação de Modem', start_date, end_date)
                 Manage.insert_payload(payload)
-        '''
+        start_date = start_create
+        start_date = Manage.available_date(start_date)
+        for customer in customer_no_have_date:
+            supplier = Getter.get_supplier_in_backlog('customer', customer)
+            supplier = supplier[0]
+            valida = excel.validate_date_avaible_for_supplier(supplier, start_date) 
+            while valida is None:
+                start_date = Manage.date_sum_hour(start_date, 1)
+                start_date = Manage.available_date(start_date)
+                valida = excel.validate_date_avaible_for_supplier(supplier, start_date)
+            """atualiza as condições para gerar as visitas ou não"""
+            """start_date = finished_create o sistema para de gerar visitas."""
+            condition_finish_create_visits = start_date >= finished_create
+            conditon_continue_create_visits = start_date < finished_create
+            if conditon_continue_create_visits:
+                end_date = Manage.date_sum_hour(start_date, 1)
+                payload = Manage.generate_available_payload_visit(customer, supplier, 'Pendente', 'Instalação de Modem', start_date, end_date)
+                Manage.insert_payload(payload)            
         return True
 
     def customer_available(self):
@@ -54,22 +68,26 @@ class excel:
             customer_backlog = Getter.get_all_backlog('customer')
             customer_no_have_date = Getter.find_all_customer_have_date('backlog', None)
             customer_have_date = [x for x in customer_backlog if x not in customer_no_have_date]
+            print(customer_have_date)
             return customer_no_have_date, customer_have_date
         except:
             return 'falha'
 
     def insert_backlog_in_db(self):
         try:
-            e = excel()
-            e.load_backlog()
-            row, column = e.max_row_column()
+            excel.load_backlog()
+            row, column = excel.max_row_column()
             for r in range(1, row+1):
-                customer = e.read_cell(r, 1)
-                supplier = e.read_cell(r, 2)
-                task = e.read_cell(r, 3)
-                start_date = e.read_cell(r, 4)
+                customer = excel.read_cell(r, 1)
+                supplier = excel.read_cell(r, 2)
+                task = excel.read_cell(r, 3)
+                start_date = excel.read_cell(r, 4)
+                if start_date is None:
+                    payload = Manage.generate_none_payload_visit(customer, supplier, task)
+                else:
+                    end_date = Manage.date_sum_hour(start_date, 1)
+                    payload = Manage.generate_available_payload_visit(customer, supplier, 'Backlog', 'Instalação de Modem', start_date, end_date)
                 ''' inserir data in mongo '''
-                payload = Manage.generate_none_payload_visit(customer, supplier, start_date, task)
                 f = Insert_Backlog_Payload()
                 f.generate(payload)
                 f.insert_to_mongo()
@@ -89,9 +107,16 @@ class excel:
             print('Falha ao encontrar backlog')
             return None
     
-    def find_date_avaible(supplier):
-        supplier_visits = Getter.find_all_date_supplier('time_table', supplier)
-        return supplier
+    def validate_date_avaible_for_supplier(self, supplier, start_date):
+        '''retorna True se caso o supplier estiver disponivel e False caso contrario'''
+        try:
+            list_suppliers = Getter.find_all_suppliers_in_this_date('time_table', start_date.strftime("%Y-%m-%dT%H"))
+            for suppliers in list_suppliers:
+                if supplier == suppliers:
+                    return None
+            return True    
+        except:
+            print("falha ao validar data")
 
     def read_cell(self, nrow, ncolumn):
         '''ler celula e retornar data'''
@@ -115,5 +140,9 @@ class excel:
 
 
 if __name__ == '__main__':
-    e = excel()
-    e.generate_timetable_with_backlog()
+    excel = excel()
+    #excel.insert_backlog_in_db()
+    start_create = fake.future_datetime("+10h")
+    finished_create = Manage.date_sum_hour(start_create, 19)
+    print("A visitas do log serão geradas de {} até {}".format(start_create.strftime("%Y-%m-%dT%H"), finished_create.strftime("%Y-%m-%dT%H")))
+    excel.generate_timetable_with_backlog(start_create, finished_create)

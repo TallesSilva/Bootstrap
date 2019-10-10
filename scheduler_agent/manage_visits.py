@@ -17,7 +17,8 @@ class Manage:
     def generate_timetable(start_create: datetime, finished_create: datetime):
         """Inicializa variaveis necessarias e lista todos os customers sem visita e cria visitas."""
         start_date = start_create
-        end_date = Manage.date_sum_hour(start_date, 1)
+        start_date = Manage.available_date(start_date)
+
         customer_available = Manage.find_available_customer()
         for customer in customer_available:
             """start_date = finished_create o sistema para de gerar visitas."""
@@ -26,7 +27,6 @@ class Manage:
             while suppliers is None:
                 """Percorre as datas a procura de supplier != None."""
                 start_date = Manage.date_sum_hour(start_date, 1)
-                end_date = Manage.date_sum_hour(start_date, 1)
                 start_date = Manage.available_date(start_date)
                 suppliers = Manage.find_available_suppliers(start_date)
             """atualiza as condições para gerar as visitas ou não"""
@@ -35,9 +35,10 @@ class Manage:
             if condition_finish_create_visits:
                 break
             else:
+                end_date = Manage.date_sum_hour(start_date, 1)
                 x = len(suppliers)
                 x = random.randint(0, (x-1))
-                payload = Manage.generate_available_payload_visit(customer, suppliers[x], start_date, end_date)
+                payload = Manage.generate_available_payload_visit(customer, supplier, 'Confirmada', 'Instalação de Modem', start_date, end_date)
                 Manage.insert_payload(payload)
         return True
 
@@ -67,15 +68,15 @@ class Manage:
             return None
         return suppliers
 
-    def generate_available_payload_visit(customer, supplier, start_date, end_date):
+    def generate_available_payload_visit(customer, supplier, status, task, start_date, end_date):
         """Retorna um payload da visita."""
         try:
             payload_timetable = {
             "start_date": start_date.strftime("%Y-%m-%dT%H"),
             "end_date": end_date.strftime("%Y-%m-%dT%H"),
-            "status": 'Aberto',
-            "observacao": '',
-            "task": 'Instalação de Modem',
+            "status": status,
+            "observacao": task,
+            "task": task,
             "supplier": supplier,
             "customer": customer,
             "company": "5d6020abd12e66a47a7888ed"
@@ -85,13 +86,13 @@ class Manage:
         except:
             print("exception has found")
 
-    def generate_none_payload_visit(customer, supplier, start_date, task):
+    def generate_none_payload_visit(customer, supplier, task):
         """Retorna um payload da visita."""
         try:
             payload_timetable = {
-            "start_date": start_date,
+            "start_date": None,
             "end_date": None,
-            "status": 'Aberto',
+            "status": 'Backlog',
             "observacao": '',
             "task": task,
             "supplier": supplier,
@@ -137,9 +138,7 @@ if __name__ == '__main__':
     gera uma data de inicio de criação de visitas
     e uma data de finalização da criação das visitas.
     """
-    start_create = fake.future_datetime("+0h")
-    start_create = Manage.available_date(start_create)
-    finished_create = Manage.date_sum_hour(start_create, 3)
-    finished_create = Manage.available_date(finished_create)
+    start_create = fake.future_datetime("+10h")
+    finished_create = Manage.date_sum_hour(start_create, 19)
     print("A visitas serão geradas de {} até {}".format(start_create.strftime("%Y-%m-%dT%H"), finished_create.strftime("%Y-%m-%dT%H")))
     Manage.generate_timetable(start_create, finished_create)
