@@ -26,15 +26,15 @@ class excel:
         print(customer_have_date)
         for customer in customer_no_have_date:
             supplier = Getter.get_supplier_in_backlog('customer', customer)
-            print(supplier)
-        '''
+            date = find_date_avaible(supplier)
+            print(date)
+            '''
             while suppliers is None:
                 """Percorre as datas a procura de supplier != None."""
                 start_date = Manage.date_sum_hour(start_date, 1)
                 end_date = Manage.date_sum_hour(start_date, 1)
                 start_date = Manage.available_date(start_date)
                 suppliers = Manage.find_available_suppliers(start_date)
-           
             """atualiza as condições para gerar as visitas ou não"""
             """start_date = finished_create o sistema para de gerar visitas."""
             condition_finish_create_visits = start_date >= finished_create
@@ -89,9 +89,8 @@ class excel:
             print('Falha ao encontrar backlog')
             return None
     
-    def find_date_avaible(start_date):
-        supplier_visits = Getter.find_all_date_supplier('time_table', )
-
+    def find_date_avaible(supplier):
+        supplier_visits = Getter.find_all_date_supplier('time_table', supplier)
         return supplier
 
     def read_cell(self, nrow, ncolumn):

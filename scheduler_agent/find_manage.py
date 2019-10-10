@@ -154,6 +154,7 @@ class Getter:
     def find_all_customer_have_date(collection, date):
         return Getter._get_all_data(collection, 'start_date', date, 'customer' )
     
+    
 
 if __name__ == '__main__':
     generators = [
