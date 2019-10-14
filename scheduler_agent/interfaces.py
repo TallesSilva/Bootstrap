@@ -1,11 +1,4 @@
-from pymongo import MongoClient
-from constants import (
-    MONGO_HOST,
-    MONGO_PORT,
-    MONGO_USER,
-    MONGO_PASS, 
-    MONGO_DEFAULT_DB #aia
-)
+from imports import *
 
 def get_mongo_database():
     client = MongoClient(host=MONGO_HOST,

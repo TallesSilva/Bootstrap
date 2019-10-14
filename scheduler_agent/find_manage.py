@@ -1,14 +1,4 @@
-import logging
-import json
-import random
-from interfaces import get_mongo_database
-from constants import (
-    MONGO_HOST,
-    MONGO_PORT,
-    MONGO_USER,
-    MONGO_PASS, 
-    MONGO_DEFAULT_DB 
-)
+from imports import *
 
 logger = logging.getLogger()
 logger.setLevel(logging.DEBUG)
