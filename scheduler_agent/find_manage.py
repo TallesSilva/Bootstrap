@@ -1,14 +1,4 @@
-import logging
-import json
-import random
-from interfaces import get_mongo_database
-from constants import (
-    MONGO_HOST,
-    MONGO_PORT,
-    MONGO_USER,
-    MONGO_PASS, 
-    MONGO_DEFAULT_DB 
-)
+from imports import *
 
 logger = logging.getLogger()
 logger.setLevel(logging.DEBUG)
@@ -111,6 +101,9 @@ class Getter:
     def get_supplier(data_type, data): # através de um dado de supplier retorna todos os outros dados dele
         return Getter._get_one_something('supplier', data_type, data, 1)
 
+    def get_supplier_in_backlog(data_type, data): # procura um supplier no backlog atraves do customer
+        return Getter._get_all_data('backlog', data_type, data, 'supplier')
+
     def get_customer(data_type, data): # através de um dado de supplier retorna todos os outros dados dele
         return Getter._get_one_something('customer', data_type, data, 1)
 
@@ -119,6 +112,9 @@ class Getter:
 
     def get_visit(data_type, data): # através de um dado de supplier retorna todos os outros dados dele
         return Getter._get_one_something('time_table', data_type, data, 1)
+
+    def get_backlog(data_type, data): # através de um dado de supplier retorna todos os outros dados dele
+        return Getter._get_one_something('backlog', data_type, data, 1)
 
     def get_all_supplier(data_type): # através de um tipo de dado de supplier retorna todos suppliers
         return Getter._get_all_something('supplier', data_type, 1, 1)
@@ -135,20 +131,29 @@ class Getter:
     def get_all_backlog(data_type): # através de um tipo de dado retorna todos esses dados do backlog
         return Getter._get_all_something('backlog', data_type, 1, 1)
 
+    def get_all_suppliers_has_visit(data):
+        return Getter._get_all_data('time_table', 'start_date', data, 'supplier')
+
     def get_random_visit():
         list_visits = Getter._get_all_something('time_table', '_id', 1, 1)
         x = len(list_visits)
         x = random.randint(0, (x-1))
         random_visit = Getter.get_visit('_id', list_visits[x])
         return random_visit
-    
-    def customers_backlog():
 
-        return True
+    def find_all_suppliers_in_this_date(collection, data):
+        return Getter._get_all_data(collection, 'start_date', data, 'supplier' )
+    
+    def find_all_customer_have_date(collection, data):
+        return Getter._get_all_data(collection, 'start_date', data, 'customer' )
+    
+    def find_start_date_in_backlog(data_type, data):
+        return Getter._get_all_data('backlog', data_type, data, 'start_date')
+
 
 if __name__ == '__main__':
     generators = [
-        Getter.get_all_suppliers_has_visit('2019-09-26T08')
+        #Getter.get_all_suppliers_has_visit('2019-09-26T08')
         #Getter.get_all_visits('start_data'),
         #Getter.get_all_company(data)
         #Getter.get_all_customer(data)
@@ -157,6 +162,8 @@ if __name__ == '__main__':
         #Getter.get_customer(type, data)
         #Getter.get_supplier(type, data)
         #Getter.get_random_visit()
+        #Getter.find_date_supplier('backlog', 'José1')
+        Getter.find_all_customer_have_date('backlog', None)
     ]
     for g in generators:
         print(g)
