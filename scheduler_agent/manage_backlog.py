@@ -27,8 +27,8 @@ class excel:
             supplier = supplier[0]
             start_date = Getter.find_start_date_in_backlog('customer', customer)
             start_date = start_date[0]
-            print(start_date)
             start_date = datetime.strptime(start_date, "%Y-%m-%dT%H")
+            start_date = Manage.available_date(start_date)
             valida = excel.validate_date_avaible_for_supplier(supplier, start_date) 
             while valida is None:
                 start_date = Manage.date_sum_hour(start_date, 1)
@@ -68,7 +68,6 @@ class excel:
             customer_backlog = Getter.get_all_backlog('customer')
             customer_no_have_date = Getter.find_all_customer_have_date('backlog', None)
             customer_have_date = [x for x in customer_backlog if x not in customer_no_have_date]
-            print(customer_have_date)
             return customer_no_have_date, customer_have_date
         except:
             return 'falha'
