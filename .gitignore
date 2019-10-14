@@ -1,10 +1,4 @@
 __pycache__
-<<<<<<< HEAD
 vscode/
 *.tar.gz
 *.vscode/settings.json
-=======
-*.vscode
-*.tar.gz
-*.credentials.json
->>>>>>> fe1dd3160baa91606aaf956f160248d143748254
