@@ -59,7 +59,7 @@ class excel:
             conditon_continue_create_visits = start_date < finished_create
             if conditon_continue_create_visits:
                 end_date = Manage.date_sum_hour(start_date, 1)
-                payload = Manage.generate_available_payload_visit(customer, supplier, 'Pendente', 'Instalação de Modem', start_date, end_date)
+                payload = Manage.generate_available_payload_visit(customer, supplier, 'Backlog', 'Instalação de Modem', start_date, end_date)
                 Manage.insert_payload(payload)            
         return True
 
@@ -70,6 +70,7 @@ class excel:
             customer_have_date = [x for x in customer_backlog if x not in customer_no_have_date]
             return customer_no_have_date, customer_have_date
         except:
+            print("falha no calculo dos customers")
             return 'falha'
 
     def insert_backlog_in_db(self):
@@ -92,6 +93,7 @@ class excel:
                 f.insert_to_mongo()
             return True
         except:
+            print("falha ao inserir backlog em db")
             return False
 
     def load_backlog(self):
@@ -103,7 +105,7 @@ class excel:
             self.ws = wb.active
             return self.ws
         except Exception as log:
-            print('Falha ao encontrar backlog')
+            print('Falha ao carregar aquivo de backlog')
             return None
     
     def validate_date_avaible_for_supplier(self, supplier, start_date):
@@ -123,7 +125,7 @@ class excel:
             data = self.ws.cell(nrow, ncolumn).value
             return data
         except:
-            
+            print("falha ao retornar celula linha {} e {}".format(nrow, ncolumn))
             return None
 
     def max_row_column(self):
